@@ -25,9 +25,6 @@ def get_prompts(prompt=prompt):
     
 def generate_questions(user_prompt):
     prompts = get_prompts()
-    print("prompt1: ",prompts[0])
-    print("prompt2: ",prompts[1])
-    print("prompt3: ",prompts[2])
     messages =[{"role": "system","content": prompts[0]},
     {"role": "user","content": prompts[1]},
     {"role":"assistant", "content":prompts[2]},

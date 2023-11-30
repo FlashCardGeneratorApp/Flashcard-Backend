@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 import os
 model = {3:"gpt-3.5-turbo", 4:"gpt-4-1106-preview"}
 load_dotenv()
-client = openai.OpenAI(api_key=os.environ.get("OPENAI_KEY"))
+client = openai.OpenAI(api_key=os.environ["OPENAI_KEY"])
 
 def get_prompts(file="prompt.txt"):
     with open(file, "r") as f:

@@ -10,11 +10,12 @@ app = Flask(__name__)
 def create_new_note():
     try:
         note_data = request.get_json()
-
-        # Validate note_data here (e.g., check required fields)
-
-        result = collection_name.insert_one(note_data)
-        return jsonify({"message": "Note created successfully", "id": str(result.inserted_id)})
+        if not note_data.user_id:
+            return jsonify({"message": "Missing User ID"},500)
+        for question in note_data.questions:
+            question.user_id = note_data.user_id
+            result = collection_name.insert_one(note_data)
+        return jsonify({"message": "Note created successfully"})
     except Exception as e:
         return str(e), 500
 

@@ -27,19 +27,8 @@ def create_new_note():
 # Get all notes using user_id
 @app.route('/notes/<user_id>', methods=['GET'])
 def get_all_notes_by_user_id(user_id):
-    try:
-        notes_cursor = collection_name.find({'user_id': user_id })
-        notes = list(notes_cursor)
-        for note in notes:
-            note['user_id'] = str(note['user_id'])
-        return json.dumps(notes, default=str), 200, {'Content-Type': 'application/json'}
-    except Exception as e:
-        return str(e), 500
-
-# Get all notes associated with a user
-@app.route('/notes/<user_id>', methods=['GET'])
-'''TODO
-Convert it to send a JSON = 
+    '''TODO
+Respond with a JSON = 
 {
     questions:
     [
@@ -58,10 +47,11 @@ Convert it to send a JSON =
     
 }
 '''
-def get_all_notes(user_id):
     try:
-        notes_cursor = collection_name.find()
+        notes_cursor = collection_name.find({'user_id': user_id })
         notes = list(notes_cursor)
+        for note in notes:
+            note['user_id'] = str(note['user_id'])
         return json.dumps(notes, default=str), 200, {'Content-Type': 'application/json'}
     except Exception as e:
         return str(e), 500
@@ -80,6 +70,27 @@ def delete_note(note_id):
 
 
 @app.route('/notes/generate/<topic>', methods=['GET'])
+'''TODO
+Respond with a JSON = 
+{
+    questions:
+    [
+        {
+      question: "What dynasty did Qin Shi Huang Found?",
+      options: ["Qing Dynasty", "Han Dynasty", "Song Dynasty", "Zhou Dynasty"],
+      answer: 1,
+    },
+    {
+      question: "Who orchestrated the Long March?",
+      options: ["Bo Gu", "Mao Ze Dong", "Chiang Kai Shek", "Zhou Enlai"],
+      answer: 2,
+    },
+    ...
+    ]
+    
+}
+This might do this already verify it please
+'''
 def question_helper(topic):
     return generate_questions(topic)
 

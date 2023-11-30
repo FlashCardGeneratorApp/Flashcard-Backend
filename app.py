@@ -6,6 +6,10 @@ from bson import ObjectId
 
 app = Flask(__name__)
 
+@app.route('/', methods=['GET'])
+def home():
+    return jsonify({"message": "Notes created successfully"})
+
 # Create a new note in our collection
 @app.route('/notes/', methods=['POST'])
 def create_new_note():

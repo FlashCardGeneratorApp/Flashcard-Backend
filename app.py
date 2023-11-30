@@ -19,6 +19,18 @@ def create_new_note():
         return jsonify({"message": "Notes created successfully"})
     except Exception as e:
         return str(e), 500
+    
+# Get all notes using user_id
+@app.route('/notes/<user_id>', methods=['GET'])
+def get_all_notes_by_user_id(user_id):
+    try:
+        notes_cursor = collection_name.find({'user_id': user_id })
+        notes = list(notes_cursor)
+        for note in notes:
+            note['user_id'] = str(note['user_id'])
+        return json.dumps(notes, default=str), 200, {'Content-Type': 'application/json'}
+    except Exception as e:
+        return str(e), 500
 
 # Get all notes associated with a user
 @app.route('/notes/<user_id>', methods=['GET'])

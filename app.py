@@ -38,6 +38,26 @@ def get_all_notes_by_user_id(user_id):
 
 # Get all notes associated with a user
 @app.route('/notes/<user_id>', methods=['GET'])
+'''TODO
+Convert it to send a JSON = 
+{
+    questions:
+    [
+        {
+      question: "What dynasty did Qin Shi Huang Found?",
+      options: ["Qing Dynasty", "Han Dynasty", "Song Dynasty", "Zhou Dynasty"],
+      answer: 1,
+    },
+    {
+      question: "Who orchestrated the Long March?",
+      options: ["Bo Gu", "Mao Ze Dong", "Chiang Kai Shek", "Zhou Enlai"],
+      answer: 2,
+    },
+    ...
+    ]
+    
+}
+'''
 def get_all_notes(user_id):
     try:
         notes_cursor = collection_name.find()

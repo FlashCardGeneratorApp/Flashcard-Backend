@@ -27,26 +27,26 @@ def create_new_note():
 # Get all notes using user_id
 @app.route('/notes/<user_id>', methods=['GET'])
 def get_all_notes_by_user_id(user_id):
-    '''TODO
-Respond with a JSON = 
-{
-    questions:
-    [
-        {
-      question: "What dynasty did Qin Shi Huang Found?",
-      options: ["Qing Dynasty", "Han Dynasty", "Song Dynasty", "Zhou Dynasty"],
-      answer: 1,
-    },
-    {
-      question: "Who orchestrated the Long March?",
-      options: ["Bo Gu", "Mao Ze Dong", "Chiang Kai Shek", "Zhou Enlai"],
-      answer: 2,
-    },
-    ...
-    ]
+#     '''TODO
+# Respond with a JSON = 
+# {
+#     questions:
+#     [
+#         {
+#       question: "What dynasty did Qin Shi Huang Found?",
+#       options: ["Qing Dynasty", "Han Dynasty", "Song Dynasty", "Zhou Dynasty"],
+#       answer: 1,
+#     },
+#     {
+#       question: "Who orchestrated the Long March?",
+#       options: ["Bo Gu", "Mao Ze Dong", "Chiang Kai Shek", "Zhou Enlai"],
+#       answer: 2,
+#     },
+#     ...
+#     ]
     
-}
-'''
+# }
+# '''
     try:
         notes_cursor = collection_name.find({'user_id': user_id })
         notes = list(notes_cursor)
@@ -71,27 +71,27 @@ def delete_note(note_id):
 
 @app.route('/notes/generate/<topic>', methods=['GET'])
 def question_helper(topic):
-    '''TODO
-Respond with a JSON = 
-{
-    questions:
-    [
-        {
-      question: "What dynasty did Qin Shi Huang Found?",
-      options: ["Qing Dynasty", "Han Dynasty", "Song Dynasty", "Zhou Dynasty"],
-      answer: 1,
-    },
-    {
-      question: "Who orchestrated the Long March?",
-      options: ["Bo Gu", "Mao Ze Dong", "Chiang Kai Shek", "Zhou Enlai"],
-      answer: 2,
-    },
-    ...
-    ]
+#     '''TODO
+# Respond with a JSON = 
+# {
+#     questions:
+#     [
+#         {
+#       question: "What dynasty did Qin Shi Huang Found?",
+#       options: ["Qing Dynasty", "Han Dynasty", "Song Dynasty", "Zhou Dynasty"],
+#       answer: 1,
+#     },
+#     {
+#       question: "Who orchestrated the Long March?",
+#       options: ["Bo Gu", "Mao Ze Dong", "Chiang Kai Shek", "Zhou Enlai"],
+#       answer: 2,
+#     },
+#     ...
+#     ]
     
-}
-This might do this already verify it please
-    '''
+# }
+# This might do this already verify it please
+#     '''
     return generate_questions(topic)
 
 if __name__ == '__main__':

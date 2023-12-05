@@ -61,10 +61,10 @@ def delete_note():
     try:
         for note_id in notes["question_id"]:
             result = collection_name.delete_one({'_id': ObjectId(note_id)})
-            if result.deleted_count:
-                return jsonify({'message': 'Note deleted successfully'})
-            else:
-                return jsonify({'error': 'Note not found'}), 404
+        if result.deleted_count:
+            return jsonify({'message': 'Note deleted successfully'})
+        else:
+            return jsonify({'error': 'Note not found'}), 404
     except Exception as e:
         return str(e), 500
 

@@ -1,15 +1,10 @@
 from flask import Flask, request, jsonify
-from dotenv import load_dotenv
 from utils import client, dbname, collection_name  # for Azure Cosmos DB
-from bson import ObjectId
-import os
 import json
-import questionGenerator
-
+from  questionGenerator import generate_questions
+from bson import ObjectId
 
 app = Flask(__name__)
-load_dotenv()
-model = {3: "gpt-3.5-turbo", 4: "gpt-4-1106-preview"}
 
 @app.route('/', methods=['GET'])
 def home():
@@ -51,7 +46,7 @@ Respond with a JSON =
     ]
     
 }
-    '''
+'''
     try:
         notes_cursor = collection_name.find({'user_id': user_id })
         notes = list(notes_cursor)

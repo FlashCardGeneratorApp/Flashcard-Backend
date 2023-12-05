@@ -59,7 +59,7 @@ def get_all_notes_by_user_id(user_id):
 def delete_note():
     notes = request.json
     try:
-        for note_id in notes:
+        for note_id in notes["question_id"]:
             result = collection_name.delete_one({'_id': ObjectId(note_id)})
             if result.deleted_count:
                 return jsonify({'message': 'Note deleted successfully'})

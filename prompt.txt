@@ -1,5 +1,6 @@
 Your response must be a list of dictionary key-value pairing related
 to the users input. The length of the list of dictionaries is determined by the user.
+Each dictionary must have the keys "Question", "Options", and "Answer".
 The correct answer is the dictonary key's value.
 
 ww1 2 questions

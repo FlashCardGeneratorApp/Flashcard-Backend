@@ -71,28 +71,11 @@ def delete_note(note_id):
 
 @app.route('/notes/generate/<topic>', methods=['GET'])
 def question_helper(topic):
-#     '''TODO
-# Respond with a JSON = 
-# {
-#     questions:
-#     [
-#         {
-#       question: "What dynasty did Qin Shi Huang Found?",
-#       options: ["Qing Dynasty", "Han Dynasty", "Song Dynasty", "Zhou Dynasty"],
-#       answer: 1,
-#     },
-#     {
-#       question: "Who orchestrated the Long March?",
-#       options: ["Bo Gu", "Mao Ze Dong", "Chiang Kai Shek", "Zhou Enlai"],
-#       answer: 2,
-#     },
-#     ...
-#     ]
-    
-# }
-# This might do this already verify it please
-#     '''
-    return generate_questions(topic)
+    generated_questions = generate_questions(topic)
+    # for question in generated_questions:
+    #     if 'Question' not in question or 'Options' not in question or 'Answer' not in question:
+    #         return f'Try again', 400
+    return jsonify(generated_questions)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8000)

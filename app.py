@@ -8,7 +8,7 @@ app = Flask(__name__)
 
 @app.route('/', methods=['GET'])
 def home():
-    return jsonify({"message": "Notes created successfully"})
+    return jsonify({"message": "Home Page"})
 
 # Create a new note in our collection
 @app.route('/notes/', methods=['POST'])
@@ -27,11 +27,11 @@ def create_new_note():
     # }
     # '''
     try:
-        note_data = request.get_json()
-        if not note_data.user_id:
+        note_data = request.json
+        if not note_data["user_id"]:
             return jsonify({"message": "Missing User ID"},500)
-        for question in note_data.questions:
-            question.user_id = note_data.user_id
+        for question in note_data["questions"]:
+            question = note_data["user_id"]
         result = collection_name.insert_many(note_data.questions)
         return jsonify({"message": "Notes created successfully"})
     except Exception as e:
@@ -71,9 +71,11 @@ def get_all_notes_by_user_id(user_id):
     except Exception as e:
         return str(e), 500
 
+
 # Delete note
-@app.route('/notes/<note_id>', methods=['DELETE'])
-def delete_note(note_id):
+@app.route('/notes', methods=['DELETE'])
+def delete_note():
+    # {questions_id: [id,id,id]} for
     try:
         result = collection_name.delete_one({'_id': ObjectId(note_id)})
         if result.deleted_count:
@@ -83,12 +85,9 @@ def delete_note(note_id):
     except Exception as e:
         return str(e), 500
 
-
 @app.route('/notes/generate/<topic>', methods=['GET'])
-def question_helper(topic):
+def question__generator(topic):
     generated_questions = generate_questions(topic)
-    questionsObj = {}
-    questionsObj['questions'] = generated_questions
     # for question in generated_questions:
     #     if 'Question' not in question or 'Options' not in question or 'Answer' not in question:
     #         return f'Try again', 400
@@ -103,7 +102,7 @@ def question_helper(topic):
     # ]}
     # '''
      
-    return jsonify(questionsObj)
+    return jsonify({"questions": generated_questions})
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8000)
+    app.run(host='0.0.0.0', port=8000, debug=True)

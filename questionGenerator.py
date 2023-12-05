@@ -12,15 +12,32 @@ def get_prompts(file="prompt.txt"):
 
 def generate_questions(user_prompt):
     prompts = get_prompts()
-    messages =[{"role": "system","content": prompts[0]},
-    {"role": "user","content": prompts[1]},
-    {"role":"assistant", "content":prompts[2]},
-    {"role": "user","content": f"{user_prompt}"},]
-    return client.chat.completions.create(
+    messages = [
+        {"role": "system", "content": prompts[0]},
+        {"role": "user", "content": prompts[1]},
+        {"role": "assistant", "content": prompts[2]},
+        {"role": "user", "content": f"{user_prompt}"},
+    ]
+
+    # Create completion using OpenAI API
+    response = client.chat.completions.create(
         model=model[3],
-        messages = messages,
+        messages=messages,
         n=1,
-    ).choices[0].message.content
+    )
+
+    # Extract content from the API response
+    generated_content = response.choices[0].message.content
+
+    # Assuming generated_content is in a specific format, transform it to a dictionary
+    # Here's an example structure:
+    generated_questions = {
+        "Question": generated_content.get("question"),
+        "Options": generated_content.get("options"),
+        "Answer": generated_content.get("answer")
+    }
+
+    return generated_questions
 
 def main():
     user_input = input("Text: ")
